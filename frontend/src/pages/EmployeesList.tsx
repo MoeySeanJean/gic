@@ -22,7 +22,7 @@ const EmployeesList = () => {
   const [employees, setEmployees] = useState<Employee[]>([]);
   const [showModal, setShowModal] = useState(false);
   const [selectedEmployee, setSelectedEmployee] = useState<Employee | null>(null);
-  const [colDefs, setColDefs] = useState<ColDef<Employee>[]>([
+  const [colDefs] = useState<ColDef<Employee>[]>([
     { field: "id", flex: 1 },
     { field: "name", flex: 1 },
     { field: "email", flex: 1 },

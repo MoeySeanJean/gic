@@ -26,7 +26,7 @@ const CafesList = () => {
   const [options, setOptions] = useState<AutoCompleteProps['options']>([]);
   const [showModal, setShowModal] = useState(false);
   const [selectedCafe, setSelectedCafe] = useState<Cafe | null>(null);
-  const [colDefs, setColDefs] = useState<ColDef<Cafe>[]>([
+  const [colDefs] = useState<ColDef<Cafe>[]>([
     { field: "logo", flex: 1, cellRenderer: (p: any) => {
         if (p.value) {
           return <LogoCell logoUrl={p.value} />;
