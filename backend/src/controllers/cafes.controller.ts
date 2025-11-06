@@ -16,7 +16,7 @@ export const createCafe = async (req: Request, res: Response) => {
 
   let logoUrl: string | undefined;
   if ((req as any).file) {
-    logoUrl = `/uploads/${(req as any).file.filename}`;
+    logoUrl = `/data/${(req as any).file.filename}`;
   }
 
   const created = await prisma.cafe.create({ data: { name, description, location, logoUrl } });
@@ -30,7 +30,7 @@ export const updateCafe = async (req: Request, res: Response) => {
   if (description && description.length > 256) return res.status(400).json({ message: 'description max 256 chars' });
 
   let data: any = { name, description, location };
-  if ((req as any).file) data.logoUrl = `/uploads/${(req as any).file.filename}`;
+  if ((req as any).file) data.logoUrl = `/data/${(req as any).file.filename}`;
 
   const updated = await prisma.cafe.update({ where: { id }, data });
   res.json(updated);

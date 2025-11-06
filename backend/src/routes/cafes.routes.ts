@@ -6,7 +6,7 @@ import { listCafes, createCafe, updateCafe, deleteCafe } from '../controllers/ca
 
 const router = Router();
 
-const uploadDir = process.env.UPLOAD_DIR || './uploads';
+const uploadDir = process.env.UPLOAD_DIR || './data';
 if (!fs.existsSync(uploadDir)) fs.mkdirSync(uploadDir, { recursive: true });
 
 const storage = multer.diskStorage({
