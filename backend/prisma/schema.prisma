@@ -21,8 +21,8 @@ model Cafe {
 model Employee {
   id           String   @id
   name         String
-  email        String   @unique
-  phone        String   @unique
+  email        String
+  phone        String
   gender       String
   cafeId       String?
   cafe         Cafe?    @relation(fields: [cafeId], references: [id], onDelete: Cascade)
