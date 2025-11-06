@@ -4,7 +4,7 @@ import { createCafe, updateCafe, getCafes } from "../api/cafes";
 import { useNavigate, useParams } from "react-router-dom";
 import { useCallback, useEffect, useState } from "react";
 import { getLogo } from "../api/logos";
-import { useUnsavedChanges } from "../components/unsavedChanges";
+import { useUnsavedChanges } from "../components/UnsavedChanges";
 
 
 export default function CafeEdit() {
