@@ -13,7 +13,7 @@ export const getEmployees = async ({ cafe }: { cafe?: string }) => {
     email: e.email,
     phone: e.phone,
     gender: e.gender,
-    daysWorked: dayjs().diff(dayjs(e.startDate), 'day'),
+    daysWorked: e.startDate ? dayjs().diff(dayjs(e.startDate), 'day') : 0,
     cafe: e.cafe ? e.cafe.name : ''
   }));
   mapped.sort((a, b) => b.daysWorked - a.daysWorked);

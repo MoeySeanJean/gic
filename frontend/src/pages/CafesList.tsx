@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { AutoComplete, Button, message, Modal, Space } from 'antd';
+import { AutoComplete, Button, Modal, Space } from 'antd';
 import type { AutoCompleteProps } from 'antd';
 import { getCafes, deleteCafe } from '../api/cafes';
 import type { ColDef, CellClickedEvent } from "ag-grid-community";
