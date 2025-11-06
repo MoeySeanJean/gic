@@ -114,10 +114,11 @@ const CafesList = () => {
   };
 
   const onCellClicked = useCallback((event: CellClickedEvent<Cafe>) => {
-    if (event.colDef && (event.colDef.field as string) === 'employees') {
-      navigate(`/employees`);
+    if (event.colDef?.field === "employees") {
+      const cafeName = event.data?.name;
+      navigate("/employees", { state: { filter: cafeName } });
     }
-  }, []);
+  }, [navigate]);
 
   return (
     <>

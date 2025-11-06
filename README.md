@@ -1,5 +1,7 @@
 # Setting up
 
+## Without Docker
+
 1. Clone the repo.
 ```bash
 git clone https://github.com/MoeySeanJean/gic.git
@@ -44,3 +46,19 @@ npm run dev
 ```
 
 8. Go to the [app](localhost:5173).
+
+## With Docker
+
+1. Clone the repo.
+```bash
+git clone https://github.com/MoeySeanJean/gic.git
+```
+
+2. Install [Docker](https://www.docker.com/).
+
+3. Run:
+```bash
+docker-compose up --build
+```
+
+4. Go to the [app](http://localhost:5173).

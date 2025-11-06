@@ -3,7 +3,7 @@ import { Button, Modal, Space } from 'antd';
 import type { ColDef } from "ag-grid-community";
 import { AgGridReact } from 'ag-grid-react';
 import { themeQuartz, AllCommunityModule, ModuleRegistry } from "ag-grid-community";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { getEmployees, deleteEmployee } from '../api/employees';
 ModuleRegistry.registerModules([AllCommunityModule]);
 
@@ -18,6 +18,9 @@ interface Employee {
 
 const EmployeesList = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const filter = location.state?.filter
 
   const [employees, setEmployees] = useState<Employee[]>([]);
   const [showModal, setShowModal] = useState(false);
@@ -56,8 +59,12 @@ const EmployeesList = () => {
   };
 
   useEffect(() => {
-    fetchData();
-  }, []);
+    if (filter) {
+      fetchData(filter);
+    } else {
+      fetchData();
+    }
+  }, [filter]);
 
   const handleAddEmployee = () => {
     navigate("/employees/add");
