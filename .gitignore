@@ -5,6 +5,8 @@
 /backend/prisma/migrations/
 
 # Frontend
+/frontend/.env
+
 # Logs
 /frontend/logs
 /frontend/*.log
