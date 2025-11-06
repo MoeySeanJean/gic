@@ -3,6 +3,10 @@
 /backend/.env
 /backend/data
 /backend/prisma/migrations/
+/backend/**/*.d.ts.map
+/backend/**/*.d.ts
+/backend/**/*.js.map
+/backend/**/*.js
 
 # Frontend
 /frontend/.env
