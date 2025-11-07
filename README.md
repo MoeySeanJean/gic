@@ -15,16 +15,18 @@ API_URL=http://localhost:3000/api/v1
 DATA_URL=http://localhost:3000
 ```
 
-3. Setup .env in backend folder as follows:
+4. Setup a databse in PostgreSQL locally.
+
+5. Setup .env in backend folder as follows:
 ```env
 DATABASE_URL=postgresql://postgres:[password]@localhost:5432/[database]
 PORT=3000
 DATA_DIR=./data
 ```
 
-4. Open 2 terminals for frontend and backend respectively.
+6. Open 2 terminals for frontend and backend respectively.
 
-5. For backend, run:
+7. For backend, run:
 ```bash
 cd backend
 npm install
@@ -33,19 +35,19 @@ npx prisma generate
 npm run dev
 ```
 
-6. For backend data seed, run:
+8. For backend data seed, run:
 ```bash
 npm run seed
 ```
 
-7. For frontend, run:
+9. For frontend, run:
 ```bash
 cd frontend
 npm install
 npm run dev
 ```
 
-8. Go to the [app](localhost:5173).
+10. Go to the [app](localhost:5173).
 
 ## With Docker
 
