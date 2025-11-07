@@ -1,29 +1,23 @@
-FROM node:22-alpine
+FROM node:22-alpine AS backend-build
+
+WORKDIR /app/backend
+COPY backend/package*.json ./
+RUN npm install
+COPY backend/ .
+RUN npm run build && npx prisma generate
+
+FROM node:22-alpine AS frontend-build
+
+WORKDIR /app/frontend
+COPY frontend/package*.json ./
+RUN npm install
+COPY frontend/ .
+RUN npm run build
+
+FROM node:22-alpine AS runtime
 
 WORKDIR /app
-
-COPY backend/package*.json ./
-COPY backend/prisma/schema.prisma ./
-
-RUN npm install
-RUN npx prisma generate
-
-COPY . .
-
+COPY --from=backend-build /app/backend/ ./
+COPY --from=frontend-build /app/frontend/dist ./public
 EXPOSE 3000
-
-CMD ["npm", "run", "dev"]
-
-FROM node:22-alpine
-
-WORKDIR /frontend
-
-COPY frontend/package*.json ./
-
-RUN npm install
-
-COPY . .
-
-EXPOSE 5173
-
-CMD ["npm", "run", "dev"]
+CMD ["npm", "run", "start"]

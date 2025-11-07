@@ -1,13 +1,14 @@
 import { useCallback, useEffect, useState } from 'react';
-import { AutoComplete, Button, Modal, Space } from 'antd';
+import { AutoComplete } from 'antd';
 import type { AutoCompleteProps } from 'antd';
 import { getCafes, deleteCafe } from '../api/cafes';
 import type { ColDef, CellClickedEvent } from "ag-grid-community";
-import { AgGridReact } from 'ag-grid-react';
-import { themeQuartz, AllCommunityModule, ModuleRegistry } from "ag-grid-community";
 import { useNavigate } from "react-router-dom";
-import { LogoCell } from '../components/LogoCell';
-ModuleRegistry.registerModules([AllCommunityModule]);
+import LogoCell from '../components/LogoCell';
+import ActionButtons from '../components/ActionButtons';
+import AddButton from '../components/AddButton';
+import Table from '../components/Table';
+import ConfirmDeleteModal from '../components/ConfirmDeleteModal';
 
 
 interface Cafe {
@@ -41,14 +42,11 @@ const CafesList = () => {
       headerName: "Actions",
       field: "id",
       cellRenderer: (p: any) => (
-        <Space>
-          <Button size="small" onClick={() => navigate(`/cafes/${p.value}`)}>
-            Edit
-          </Button>
-          <Button size="small" danger onClick={() => handleDeleteClick(p.data)}>
-            Delete
-          </Button>
-        </Space>
+        <ActionButtons
+          routePrefix='cafes'
+          id={p.value}
+          onDelete={() => handleDeleteClick(p.data)}
+        />
       ),
     },
   ]);
@@ -131,30 +129,19 @@ const CafesList = () => {
         placeholder="Filter by location"
         allowClear
       />
-      <Button type="primary" onClick={handleAddCafe} style={{ float: 'right' }}>
-        Add New Café
-      </Button>
-      <div className="grid-wrapper" style={{ marginTop: "24px" }}>
-        <div style={{ width: '100%', height: 500 }} >
-          <AgGridReact
-            theme={themeQuartz}
-            rowData={cafes}
-            columnDefs={colDefs}
-            onCellClicked={onCellClicked}
-          />
-        </div>
-      </div>
-      <Modal
+      <AddButton text="Add New Café" onClick={handleAddCafe} style={{ float: "right" }} />
+      <div style={{ clear: 'both' }}></div>
+      <Table
+        rowData={cafes}
+        columnDefs={colDefs}
+        onCellClicked={onCellClicked}
+      />
+      <ConfirmDeleteModal
         open={showModal}
-        title="Confirm Delete"
-        okText="Delete"
-        okType="danger"
-        cancelText="Cancel"
-        onOk={handleConfirmDelete}
+        itemName={selectedCafe?.name}
+        onConfirm={handleConfirmDelete}
         onCancel={() => setShowModal(false)}
-      >
-        <p>Are you sure you want to delete {selectedCafe?.name}?</p>
-      </Modal>
+      />
     </>
   );
 };

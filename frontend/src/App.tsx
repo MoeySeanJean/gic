@@ -4,7 +4,7 @@ import CafesList from "./pages/CafesList";
 import CafeEdit from "./pages/CafeEdit";
 import EmployeesList from "./pages/EmployeesList";
 import EmployeeEdit from "./pages/EmployeeEdit";
-import { UnsavedChangesProvider } from "./components/UnsavedChanges";
+import { UnsavedChangesProvider } from "./components/UnsavedChangesContext";
 
 export default function App() {
   return (

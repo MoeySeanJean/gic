@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
-import { Button, Modal, Space } from 'antd';
 import type { ColDef } from "ag-grid-community";
-import { AgGridReact } from 'ag-grid-react';
-import { themeQuartz, AllCommunityModule, ModuleRegistry } from "ag-grid-community";
 import { useLocation, useNavigate } from "react-router-dom";
 import { getEmployees, deleteEmployee } from '../api/employees';
-ModuleRegistry.registerModules([AllCommunityModule]);
+import ActionButtons from '../components/ActionButtons';
+import AddButton from '../components/AddButton';
+import Table from '../components/Table';
+import ConfirmDeleteModal from '../components/ConfirmDeleteModal';
 
 interface Employee {
   id: string;
@@ -36,14 +36,11 @@ const EmployeesList = () => {
       headerName: "Actions",
       field: "id",
       cellRenderer: (p: any) => (
-        <Space>
-          <Button size="small" onClick={() => navigate(`/employees/${p.value}`)}>
-            Edit
-          </Button>
-          <Button size="small" danger onClick={() => handleDeleteClick(p.data)}>
-            Delete
-          </Button>
-        </Space>
+        <ActionButtons
+          routePrefix='employees'
+          id={p.value}
+          onDelete={() => handleDeleteClick(p.data)}
+        />
       ),
     },
   ]);
@@ -90,30 +87,18 @@ const EmployeesList = () => {
 
   return (
     <>
-      <Button type="primary" onClick={handleAddEmployee} style={{ float: 'right' }}>
-        Add New Employee
-      </Button>
+      <AddButton text="Add New Employee" onClick={handleAddEmployee} style={{ float: "right" }} />
       <div style={{ clear: 'both' }}></div>
-      <div className="grid-wrapper" style={{ marginTop: "24px" }}>
-        <div style={{ width: '100%', height: 500 }} >
-          <AgGridReact
-            theme={themeQuartz}
-            rowData={employees}
-            columnDefs={colDefs}
-          />
-        </div>
-      </div>
-      <Modal
+      <Table
+        rowData={employees}
+        columnDefs={colDefs}
+      />
+      <ConfirmDeleteModal
         open={showModal}
-        title="Confirm Delete"
-        okText="Delete"
-        okType="danger"
-        cancelText="Cancel"
-        onOk={handleConfirmDelete}
+        itemName={selectedEmployee?.name}
+        onConfirm={handleConfirmDelete}
         onCancel={() => setShowModal(false)}
-      >
-        <p>Are you sure you want to delete {selectedEmployee?.name}?</p>
-      </Modal>
+      />
     </>
   );
 };

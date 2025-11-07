@@ -1,10 +1,13 @@
-import { Button, Form, Input, Modal, Upload, message } from "antd";
-import { PlusOutlined } from "@ant-design/icons";
+import { Form, Input, message } from "antd";
 import { createCafe, updateCafe, getCafes } from "../api/cafes";
 import { useNavigate, useParams } from "react-router-dom";
 import { useCallback, useEffect, useState } from "react";
 import { getLogo } from "../api/logos";
-import { useUnsavedChanges } from "../components/UnsavedChanges";
+import { useUnsavedChanges } from "../components/UnsavedChangesContext";
+import ConfirmLeaveModal from "../components/ConfirmLeaveModal";
+import CancelButton from "../components/CancelButton";
+import SubmitButton from "../components/SubmitButton";
+import ImageUpload from "../components/UploadButton";
 
 
 export default function CafeEdit() {
@@ -74,73 +77,32 @@ export default function CafeEdit() {
           <Input />
         </Form.Item>
         <Form.Item label="Logo" name="logo">
-          <Upload
-            beforeUpload={(f) => {
-              if (f.size > 2 * 1024 * 1024) {
-                message.error("File must be under 2MB");
-                return Upload.LIST_IGNORE;
-              }
-              setLogoFile(f);
-              setFileList([{
-                uid: f.uid,
-                name: f.name,
-                status: "done",
-                url: URL.createObjectURL(f),
-              }]);
-              setDirty(true);
-              return false;
-            }}
-            listType="picture-card"
-            maxCount={1}
+          <ImageUpload
             fileList={fileList}
-            onRemove={() => {
-              setLogoFile(null);
-              setFileList([]);
-            }}
-          >
-            {fileList.length === 0 && (
-              <button
-                style={{ color: 'inherit', cursor: 'inherit', border: 0, background: 'none' }}
-                type="button"
-              >
-                <PlusOutlined />
-                <div style={{ marginTop: 8 }}>Upload</div>
-              </button>
-            )}
-          </Upload>
+            setFileList={setFileList}
+            setSelectedFile={setLogoFile}
+            setDirty={setDirty}
+            maxSizeMB={2}
+          />
         </Form.Item>
-        <Button type="primary" htmlType="submit" loading={loading}>
-          Submit
-        </Button>
-        <Button 
-          type="default" 
-          onClick={() => {
-            if (isDirty) {
-              setPendingPath("/cafes");
-              setShowModal(true);
-            } else {
-              navigate("/cafes");
-            }
-          }}
+        <SubmitButton loading={loading} />
+        <CancelButton
+          isDirty={isDirty}
+          setPendingPath={setPendingPath}
+          setShowModal={setShowModal}
+          to="/cafes"
           style={{ marginLeft: 8 }}
-        >
-          Cancel
-        </Button>
+        />
       </Form>
-      <Modal
+      <ConfirmLeaveModal
         open={showModal}
-        title="Unsaved Changes"
-        okText="Leave"
-        cancelText="Stay"
-        onOk={() => {
+        onLeave={() => {
           setShowModal(false);
           setDirty(false);
           if (pendingPath) navigate(pendingPath);
         }}
-        onCancel={() => setShowModal(false)}
-      >
-        <p>You have unsaved changes. Are you sure you want to leave this page?</p>
-      </Modal>
+        onStay={() => setShowModal(false)}
+      />
     </div>
   );
 }

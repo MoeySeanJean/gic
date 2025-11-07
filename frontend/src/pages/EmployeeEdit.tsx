@@ -1,9 +1,14 @@
-import { Button, Select, Form, Input, Modal, Radio, message } from "antd";
+import { Form, Input, message } from "antd";
 import { getEmployees, createEmployee, updateEmployee } from "../api/employees";
 import { useNavigate, useParams } from "react-router-dom";
 import { useCallback, useEffect, useState } from "react";
-import { useUnsavedChanges } from "../components/UnsavedChanges";
+import { useUnsavedChanges } from "../components/UnsavedChangesContext";
 import { getCafes } from "../api/cafes";
+import ConfirmLeaveModal from "../components/ConfirmLeaveModal";
+import CancelButton from "../components/CancelButton";
+import SubmitButton from "../components/SubmitButton";
+import GenderSelect from "../components/SelectGender";
+import CafeSelect from "../components/SelectCafe";
 
 
 export default function EmployeeEdit() {
@@ -67,52 +72,29 @@ export default function EmployeeEdit() {
           <Input maxLength={8} />
         </Form.Item>
         <Form.Item label="Gender" name="gender" rules={[{ required: true }]}>
-          <Radio.Group>
-            <Radio value="Male">Male</Radio>
-            <Radio value="Female">Female</Radio>
-          </Radio.Group>
+          <GenderSelect />
         </Form.Item>
         <Form.Item label="Assigned Café" name="cafeId">
-          <Select placeholder="Select a café" allowClear>
-            {cafes.map(c => (
-              <Select.Option key={c.id} value={c.id}>
-                {c.name}
-              </Select.Option>
-            ))}
-          </Select>
+          <CafeSelect cafes={cafes} />
         </Form.Item>
-        <Button type="primary" htmlType="submit" loading={loading}>
-          Submit
-        </Button>
-        <Button 
-          type="default" 
-          onClick={() => {
-            if (isDirty) {
-              setPendingPath("/employees");
-              setShowModal(true);
-            } else {
-              navigate("/employees");
-            }
-          }}
+        <SubmitButton loading={loading} />
+        <CancelButton
+          isDirty={isDirty}
+          setPendingPath={setPendingPath}
+          setShowModal={setShowModal}
+          to="/employees"
           style={{ marginLeft: 8 }}
-        >
-          Cancel
-        </Button>
+        />
       </Form>
-      <Modal
+      <ConfirmLeaveModal
         open={showModal}
-        title="Unsaved Changes"
-        okText="Leave"
-        cancelText="Stay"
-        onOk={() => {
+        onLeave={() => {
           setShowModal(false);
           setDirty(false);
           if (pendingPath) navigate(pendingPath);
         }}
-        onCancel={() => setShowModal(false)}
-      >
-        <p>You have unsaved changes. Are you sure you want to leave this page?</p>
-      </Modal>
+        onStay={() => setShowModal(false)}
+      />
     </div>
   );
 }

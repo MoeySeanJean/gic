@@ -4,7 +4,7 @@ interface LogoCellProps {
   logoUrl: string;
 }
 
-export const LogoCell = ({ logoUrl }: LogoCellProps) => {
+const LogoCell = ({ logoUrl }: LogoCellProps) => {
   const logoSrc = getLogo(logoUrl);
 
   return (
@@ -32,3 +32,5 @@ export const LogoCell = ({ logoUrl }: LogoCellProps) => {
     </div>
   );
 }
+
+export default LogoCell;
