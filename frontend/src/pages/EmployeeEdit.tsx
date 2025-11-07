@@ -60,7 +60,7 @@ export default function EmployeeEdit() {
 
   return (
     <div className="max-w-md mx-auto">
-      <h2 className="text-lg mb-4">{id ? "Edit Cafe" : "Add Cafe"}</h2>
+      <h2 className="text-lg mb-4">{id ? "Edit Employee" : "Add Employee"}</h2>
       <Form form={form} layout="vertical" onFinish={handleSubmit} onValuesChange={handleValuesChange}>
         <Form.Item label="Name" name="name" rules={[{ required: true }]}>
           <Input minLength={6} maxLength={10} />

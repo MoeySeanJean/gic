@@ -8,5 +8,5 @@ export const findEmployeeId = async () => {
   if (lastEmployee) {
     return parseInt(lastEmployee.id.replace(/^UI/, ''), 10);
   }
-  return 1;
+  return 0;
 }
