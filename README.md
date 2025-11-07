@@ -15,7 +15,7 @@ API_URL=http://localhost:3000/api/v1
 DATA_URL=http://localhost:3000
 ```
 
-4. Setup a databse in PostgreSQL locally.
+4. Setup a database in PostgreSQL locally.
 
 5. Setup .env in backend folder as follows:
 ```env

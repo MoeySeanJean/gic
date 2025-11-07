@@ -1,12 +1,8 @@
-import { getLogo } from "../api/logos";
-
 interface LogoCellProps {
   logoUrl: string;
 }
 
 const LogoCell = ({ logoUrl }: LogoCellProps) => {
-  const logoSrc = getLogo(logoUrl);
-
   return (
     <div
       style={{
@@ -20,7 +16,7 @@ const LogoCell = ({ logoUrl }: LogoCellProps) => {
     >
       <img
         alt="Logo"
-        src={logoSrc}
+        src={logoUrl}
         className="logo"
         style={{
           height: "80%",

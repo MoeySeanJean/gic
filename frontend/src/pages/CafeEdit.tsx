@@ -2,7 +2,6 @@ import { Form, Input, message } from "antd";
 import { createCafe, updateCafe, getCafes } from "../api/cafes";
 import { useNavigate, useParams } from "react-router-dom";
 import { useCallback, useEffect, useState } from "react";
-import { getLogo } from "../api/logos";
 import { useUnsavedChanges } from "../components/UnsavedChangesContext";
 import ConfirmLeaveModal from "../components/ConfirmLeaveModal";
 import CancelButton from "../components/CancelButton";
@@ -33,7 +32,7 @@ export default function CafeEdit() {
                 uid: "-1",
                 name: "logo.png",
                 status: "done",
-                url: getLogo(cafe.logo),
+                url: cafe.logo,
               },
             ]);
           }
