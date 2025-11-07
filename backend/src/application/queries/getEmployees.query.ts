@@ -7,7 +7,7 @@ export const getEmployees = async ({ cafe }: { cafe?: string }) => {
     where,
     include: { cafe: true }
   });
-  const mapped = employees.map(e => ({
+  const mapped = employees.map((e: any) => ({
     id: e.id,
     name: e.name,
     email: e.email,
@@ -16,6 +16,6 @@ export const getEmployees = async ({ cafe }: { cafe?: string }) => {
     daysWorked: e.startDate ? dayjs().diff(dayjs(e.startDate), 'day') : 0,
     cafe: e.cafe ? e.cafe.name : ''
   }));
-  mapped.sort((a, b) => b.daysWorked - a.daysWorked);
+  mapped.sort((a: any, b: any) => b.daysWorked - a.daysWorked);
   return mapped;
 };

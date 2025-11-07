@@ -6,7 +6,7 @@ export const getCafes = async ({ location }: { location?: string }) => {
     where,
     include: { employees: true }
   });
-  const mapped = cafes.map(c => ({
+  const mapped = cafes.map((c: any) => ({
     id: c.id,
     name: c.name,
     description: c.description,
@@ -14,6 +14,6 @@ export const getCafes = async ({ location }: { location?: string }) => {
     employees: c.employees.length,
     location: c.location
   }));
-  mapped.sort((a, b) => b.employees - a.employees);
+  mapped.sort((a: any, b: any) => b.employees - a.employees);
   return mapped;
 };
