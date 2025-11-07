@@ -8,7 +8,6 @@ git clone https://github.com/MoeySeanJean/gic.git
 ```
 
 2. Install [Node.js](https://nodejs.org/en/download) and [PostgreSQL](https://www.postgresql.org/download/).
-```
 
 3. Setup a database in PostgreSQL locally.
 
@@ -42,7 +41,7 @@ npm install
 npm run dev
 ```
 
-9. Go to the [app](localhost:5173).
+9. Go to the [app](http://localhost:5173).
 
 ## With Docker
 
