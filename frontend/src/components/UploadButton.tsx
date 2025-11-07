@@ -45,6 +45,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
   const handleRemove = () => {
     setSelectedFile(null);
     setFileList([]);
+    setDirty(true);
   };
 
   return (
