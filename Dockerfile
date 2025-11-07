@@ -18,6 +18,6 @@ FROM node:22-alpine AS runtime
 
 WORKDIR /app
 COPY --from=backend-build /app/backend/ ./
-COPY --from=frontend-build /app/frontend/dist ./public
+COPY --from=frontend-build /app/frontend/dist ./dist/public
 EXPOSE 3000
 CMD ["npm", "run", "start"]
